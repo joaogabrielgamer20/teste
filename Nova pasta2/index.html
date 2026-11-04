@@ -2,34 +2,38 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Tab Selector</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button Selector</title>
 <style>
-html,body{margin:0;background:transparent;font-family:Inter,system-ui,sans-serif}
-.tabs{display:flex;flex-direction:column;gap:8px;padding:12px}
-.tab{width:150px;height:38px;box-sizing:border-box;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;display:flex;align-items:center;gap:10px;padding:0 10px;font:700 14px Inter,system-ui,sans-serif;cursor:pointer;position:relative;overflow:hidden;opacity:0;transform:translateX(-20px);animation:slideIn .5s forwards;transition:background .3s,border-color .3s,box-shadow .3s}
-.tab:nth-child(1){animation-delay:.1s}.tab:nth-child(2){animation-delay:.22s}.tab:nth-child(3){animation-delay:.34s}
-@keyframes slideIn{to{opacity:1;transform:none}}
-.tab:hover:not(.on){background:rgba(255,255,255,.08);border-color:rgba(176,44,240,.6)}
-.tab.on{background:linear-gradient(90deg,#3a0a68,#6b1fc4 55%,#9a35ee);border-color:rgba(176,44,240,.7);box-shadow:0 0 14px rgba(120,30,210,.6)}
-.mk{margin-left:auto;width:4px;height:16px;border-radius:3px;background:rgba(0,0,0,.45);opacity:0;transition:opacity .3s}
-.tab.on .mk{opacity:1}
-.tab.on::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shine 3s infinite}
-@keyframes shine{to{left:130%}}
+html,body{
+  margin:0;
+  padding:0;
+  width:270px;
+  height:40px;
+  overflow:hidden;
+  background:transparent;
+}
+.sel{
+  box-sizing:border-box;
+  width:270px;
+  height:40px;
+  border-radius:10px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(90deg,#9a121c 0%,#3a1216 48%,#1a1214 100%);
+}
+.bar{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:4px;
+  height:18px;
+  border-radius:2px;
+  background:#e11d2e;
+}
 </style>
 </head>
 <body>
-<div class="tabs" id="tabs">
-  <button class="tab on"><i class="mk"></i></button>
-  <button class="tab"><i class="mk"></i></button>
-  <button class="tab"><i class="mk"></i></button>
-</div>
-<script>
-document.getElementById('tabs').addEventListener('click',e=>{
-  const b=e.target.closest('.tab');if(!b)return;
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');
-});
-</script>
+<div class="sel"><i class="bar"></i></div>
 </body>
 </html>
