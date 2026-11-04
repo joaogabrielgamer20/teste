@@ -1,39 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
 <meta charset="utf-8">
-<title>Tab Selector</title>
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  width:150px;
-  height:38px;
-  overflow:hidden;
-  background:transparent;
-}
-.sel{
-  box-sizing:border-box;
-  width:150px;
-  height:38px;
-  border-radius:10px;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(90deg,#9a121c 0%,#3a1216 48%,#1a1214 100%);
-}
-.bar{
-  position:absolute;
-  right:8px;
-  top:50%;
-  transform:translateY(-50%);
-  width:4px;
-  height:18px;
-  border-radius:2px;
-  background:#e11d2e;
-}
+html,body{margin:0;padding:0;width:512px;height:128px;background:#1a1214;overflow:hidden}
+svg{display:block;width:512px;height:128px}
 </style>
 </head>
 <body>
-<div class="sel"><i class="bar"></i></div>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="128" viewBox="0 0 512 128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#9a121c"/>
+      <stop offset="48%" stop-color="#3a1216"/>
+      <stop offset="100%" stop-color="#1a1214"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="128" rx="24" fill="url(#g)"/>
+  <rect x="488" y="34" width="12" height="60" rx="6" fill="#e11d2e"/>
+</svg>
 </body>
 </html>
