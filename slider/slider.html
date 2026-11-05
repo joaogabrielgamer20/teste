@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:transparent}
+.track{
+  width:640px;height:48px;border-radius:24px;
+  background:#222228;
+}
+.fill{
+  width:640px;height:48px;border-radius:24px;
+  background:linear-gradient(90deg,#A02DFF,#6B1BB8);
+}
+.knob{
+  width:48px;height:48px;border-radius:24px;
+  background:#C45CFF;
+  box-shadow:0 0 16px #A02DFF;
+}
+</style>
+</head>
+<body>
+<script>
+(function(){
+  var type = 'fill';
+  try { type = new URLSearchParams(location.search).get('type') || 'fill'; } catch(e) {}
+  var el = document.createElement('div');
+  el.className = type;
+  document.body.appendChild(el);
+  if (type === 'knob') {
+    document.documentElement.style.width = '48px';
+    document.documentElement.style.height = '48px';
+    document.body.style.width = '48px';
+    document.body.style.height = '48px';
+  } else {
+    document.documentElement.style.width = '640px';
+    document.documentElement.style.height = '48px';
+    document.body.style.width = '640px';
+    document.body.style.height = '48px';
+  }
+})();
+</script>
+</body>
+</html>
