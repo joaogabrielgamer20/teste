@@ -1,66 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Rum+Raisin&display=swap" rel="stylesheet">
 <style>
+:root{--w:298px;--janela-bg:#1E1E1E;--nome-bg:rgba(30,30,30,.5);--roxo:#6A0DCC;--glow:#8A2BE2}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:298px;background:transparent;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+html,body{width:var(--w);background:transparent;overflow:visible;font-family:Arial,Helvetica,sans-serif}
+
+/* JANELA 298x55 */
 .janela{
-  position:relative;
-  width:298px;
-  height:55px;
-  background:linear-gradient(180deg,#1c1c1c,#121212);
-  border:1px solid #2a2a2a;
-  border-bottom:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:15px;
-  letter-spacing:1px;
-  font-weight:700;
+  position:relative;width:var(--w);height:55px;
+  background:var(--janela-bg);
+  border-radius:8px 8px 0 0;
+  display:flex;align-items:center;gap:17px;
+  padding-left:23px;color:#fff;
 }
-.janela b{color:#A02DFF;margin-left:6px;font-weight:700}
-.nomes{width:298px}
+.janela.solo{border-radius:8px}
+
+/* barra roxa com brilho na esquerda */
+.janela::before{
+  content:"";position:absolute;left:0;top:4px;bottom:0;width:13px;
+  background:linear-gradient(180deg,#7a1fd1,var(--roxo));
+  border-radius:6px 0 0 0;
+  box-shadow:0 0 14px 2px var(--glow);
+  animation:glow 2.4s ease-in-out infinite;
+}
+@keyframes glow{50%{box-shadow:0 0 20px 4px var(--glow)}}
+
+.ghost{width:29px;height:38px;flex:none}
+.titulo{
+  font-family:'Rum Raisin','Chelsea Market',Georgia,serif;
+  font-size:21px;font-weight:700;letter-spacing:.5px;white-space:nowrap;
+}
+
+/* NOMES 298x14 (cada linha) */
+.nomes{width:var(--w)}
 .row{
-  width:298px;
-  height:14px;
-  background:rgba(30,30,30,.5);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 8px;
-  font-size:10px;
-  line-height:14px;
-  color:#fff;
+  width:var(--w);height:14px;background:var(--nome-bg);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 8px;font-size:10px;line-height:14px;color:#fff;
 }
-.nomes .row:last-child{
-  border-radius:0 0 8px 8px;
-}
+.row:last-child{border-radius:0 0 8px 8px}
 </style>
 </head>
 <body>
-<div class="janela">LISTA ADM <b id="count">0</b></div>
+<div class="janela solo" id="janela">
+  <svg class="ghost" viewBox="0 0 58 76" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fff" d="M0 29C0 13 13 0 29 0s29 13 29 29v47l-9.7-8.5L38.7 76 29 67.5 19.3 76l-9.6-8.5L0 76z"/>
+    <circle cx="20" cy="27" r="4.5" fill="#1E1E1E"/><circle cx="38" cy="27" r="4.5" fill="#1E1E1E"/>
+  </svg>
+  <span class="titulo">ADMINISTRADORES</span>
+</div>
 <div class="nomes" id="nomes"></div>
 <script>
 function paint(list){
-  list = list || [];
-  document.getElementById('count').textContent = String(list.length);
-  var box = document.getElementById('nomes');
-  box.innerHTML = '';
-  for (var i = 0; i < list.length; i++){
-    var a = list[i] || {};
-    var row = document.createElement('div');
-    row.className = 'row';
-    var c = 'rgb(' + (a.r||255) + ',' + (a.g||255) + ',' + (a.b||255) + ')';
-    row.innerHTML = '<span style="color:'+c+'">' + (a.name || '') + '</span><span style="color:'+c+'">' + (a.dist || 0) + 'm</span>';
-    box.appendChild(row);
-  }
+  list=list||[];
+  document.getElementById('janela').classList.toggle('solo',list.length===0);
+  var box=document.getElementById('nomes');box.innerHTML='';
+  list.forEach(function(a){
+    a=a||{};
+    var c='rgb('+(a.r==null?255:a.r)+','+(a.g==null?255:a.g)+','+(a.b==null?255:a.b)+')';
+    var row=document.createElement('div');row.className='row';
+    var n=document.createElement('span');n.style.color=c;n.textContent=a.name||'';
+    var d=document.createElement('span');d.style.color=c;d.textContent=(a.dist||0)+'m';
+    row.appendChild(n);row.appendChild(d);box.appendChild(row);
+  });
 }
-window.addEventListener('message', function(e){
-  var d = e.data || {};
-  paint(d.admins);
-});
+window.addEventListener('message',function(e){paint((e.data||{}).admins)});
 </script>
 </body>
 </html>
