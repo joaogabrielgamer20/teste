@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:298px;background:transparent;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+.janela{
+  position:relative;
+  width:298px;
+  height:55px;
+  background:linear-gradient(180deg,#1c1c1c,#121212);
+  border:1px solid #2a2a2a;
+  border-bottom:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:15px;
+  letter-spacing:1px;
+  font-weight:700;
+}
+.janela b{color:#A02DFF;margin-left:6px;font-weight:700}
+.nomes{width:298px}
+.row{
+  width:298px;
+  height:14px;
+  background:rgba(30,30,30,.5);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 8px;
+  font-size:10px;
+  line-height:14px;
+  color:#fff;
+}
+.nomes .row:last-child{
+  border-radius:0 0 8px 8px;
+}
+</style>
+</head>
+<body>
+<div class="janela">LISTA ADM <b id="count">0</b></div>
+<div class="nomes" id="nomes"></div>
+<script>
+function paint(list){
+  list = list || [];
+  document.getElementById('count').textContent = String(list.length);
+  var box = document.getElementById('nomes');
+  box.innerHTML = '';
+  for (var i = 0; i < list.length; i++){
+    var a = list[i] || {};
+    var row = document.createElement('div');
+    row.className = 'row';
+    var c = 'rgb(' + (a.r||255) + ',' + (a.g||255) + ',' + (a.b||255) + ')';
+    row.innerHTML = '<span style="color:'+c+'">' + (a.name || '') + '</span><span style="color:'+c+'">' + (a.dist || 0) + 'm</span>';
+    box.appendChild(row);
+  }
+}
+window.addEventListener('message', function(e){
+  var d = e.data || {};
+  paint(d.admins);
+});
+</script>
+</body>
+</html>
