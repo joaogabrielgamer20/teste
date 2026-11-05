@@ -6,7 +6,7 @@
 <style>
 :root{--w:298px;--janela-bg:#1E1E1E;--nome-bg:rgba(30,30,30,.5);--roxo:#6A0DCC;--glow:#8A2BE2}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:var(--w);background:transparent;overflow:visible;font-family:Arial,Helvetica,sans-serif}
+html,body{width:var(--w);height:265px;background:transparent;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
 
 /* JANELA 298x55 */
 .janela{
@@ -62,7 +62,7 @@ function paint(list){
     a=a||{};
     var c='rgb('+(a.r==null?255:a.r)+','+(a.g==null?255:a.g)+','+(a.b==null?255:a.b)+')';
     var row=document.createElement('div');row.className='row';
-    var n=document.createElement('span');n.style.color=c;n.textContent=a.name||'';
+    var n=document.createElement('span');n.style.color=c;n.textContent='[ADM] '+(a.name||'');
     var d=document.createElement('span');d.style.color=c;d.textContent=(a.dist||0)+'m';
     row.appendChild(n);row.appendChild(d);box.appendChild(row);
   });
